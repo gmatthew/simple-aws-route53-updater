@@ -24,9 +24,9 @@ This is a simple tool for updating Amazon Route53 for Dynamic DNS
   perl updater.pl -domain DOMAIN_NAME -zoneid ZONE_ID -account ACCOUNT
 ```
 * Options
-  - -domain : domain to be updated
-  - -ttl : ttl for record set
-  - -type : type of record (e.g CNAME, A, etc)
-  - -zoneid : zone id
-  - -comment : any notes
-  - -account : account listed within the .aws-secert file (e.g webserver)
+  - ```-domain``` : domain to be updated
+  - ```-ttl``` : ttl for record set
+  - ```-type``` : type of record (e.g CNAME, A, etc)
+  - ```-zoneid``` : zone id
+  - ```-comment``` : any notes
+  - ```-account``` : account listed within the .aws-secert file (e.g webserver)
