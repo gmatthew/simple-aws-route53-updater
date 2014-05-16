@@ -9,7 +9,7 @@ This is a simple tool for updating Amazon Route53 for Dynamic DNS
 
 ### Get Started
 
-```
+```bash
   git clone https://github.com/gmatthew/simple-aws-route53-updater.git
   cd simple-aws-route53-updater
   chmod 600 .aws-secrets
