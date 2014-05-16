@@ -17,7 +17,16 @@ This is a simple tool for updating Amazon Route53 for Dynamic DNS
 
 ### AWS Credentials
   * Obtain your zone id, access key and secret from AWS
-  * Update the .aws-secrets with your access key and secret for ACCOUNT (eg. webserver)
+  * Configure .aws-secrets
+```bash
+$ cat .aws-secrets
+%awsSecretAccessKeys = (
+    'webserver' => {
+        id => 'aws-access-key-id',
+        key => 'change',
+    },
+);
+```
 
 ### Run Script 
 ```
@@ -30,3 +39,6 @@ This is a simple tool for updating Amazon Route53 for Dynamic DNS
   - ```-zoneid``` : zone id
   - ```-comment``` : any notes
   - ```-account``` : account listed within the .aws-secert file (e.g webserver)
+
+### Credit
+* dnscurl.pl: http://aws.amazon.com/developertools/9706686376855511
