@@ -7,7 +7,6 @@ my $ttl          = 60;
 my $type         = 'A';
 my $ip_address   = '';
 my $comment      = '';
-my $output       = '/tmp/dns-updater.xml';
 my $zone_id      = '';
 my $account      = '';
 
@@ -42,42 +41,17 @@ if ( (scalar(@$domains) > 0) && $zone_id && $account ) {
 		exit unless $ip_changed;
 		
 		#build xml
-		my $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-				<ChangeResourceRecordSetsRequest xmlns=\"https://route53.amazonaws.com/doc/2013-04-01/\">
-				<ChangeBatch>
-				   <Comment>$comment</Comment>
-				   <Changes>";
+		my $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ChangeResourceRecordSetsRequest xmlns=\"https://route53.amazonaws.com/doc/2013-04-01/\"><ChangeBatch><Comment>$comment</Comment><Changes>";
 					   
 		foreach my $domain (@$domains) {	
-			$xml .= "<Change>
-				         <Action>UPSERT</Action>
-			        	 <ResourceRecordSet>
-				            <Name>$domain</Name>
-				            <Type>$type</Type>
-				            <TTL>$ttl</TTL>
-				            <ResourceRecords>
-				               <ResourceRecord>
-				                  <Value>$ip_address</Value>
-				               </ResourceRecord>
-				            </ResourceRecords>
-				         </ResourceRecordSet>
-				      </Change>";
+			$xml .= "<Change><Action>UPSERT</Action><ResourceRecordSet><Name>$domain</Name><Type>$type</Type><TTL>$ttl</TTL><ResourceRecords><ResourceRecord><Value>$ip_address</Value></ResourceRecord></ResourceRecords></ResourceRecordSet></Change>";
 		}
 		
-		$xml .=	"</Changes>
-			</ChangeBatch>
-			</ChangeResourceRecordSetsRequest>";
-
-		#write xml file to disk
-		open( my $fh, ">", $output );
-		print $fh $xml;
-		close($fh);
-
+		$xml .=	"</Changes></ChangeBatch></ChangeResourceRecordSetsRequest>";
+		
 		#push to AWS
-		system( "perl dnscurl.pl --keyname $account -- -X POST -H \"Content-Type: text/xml; charset=UTF-8\" --upload-file $output https://route53.amazonaws.com/2013-04-01/hostedzone/$zone_id/rrset" );
+		system( "perl dnscurl.pl --keyname $account -- -X POST -d '$xml' -H \"Content-Type: text/xml; charset=UTF-8\" https://route53.amazonaws.com/2013-04-01/hostedzone/$zone_id/rrset" );
 
-		#remove xml from disk
-		unlink $output;
 	}
 	else {
 		print "Unable to determine your ip address";
