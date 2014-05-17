@@ -3,12 +3,10 @@ Simple Amazon Route53 Updater
 
 By Gerard Matthew http://www.gerard.co
 
-## About
-
+### About
 This is a simple tool for updating Amazon Route53 for Dynamic DNS 
 
 ### Get Started
-
 ```bash
   git clone https://github.com/gmatthew/simple-aws-route53-updater.git
   cd simple-aws-route53-updater
@@ -31,6 +29,7 @@ $ cat .aws-secrets
 ### Run Script 
 ```
   perl updater.pl -domain DOMAIN_NAME -zoneid ZONE_ID -account ACCOUNT
+  perl updater.pl -domain DOMAIN_NAME_1 -domain DOMAIN_NAME_2 -zoneid ZONE_ID -account ACCOUNT
 ```
 * Options
   - ```-domain``` : domain to be updated
