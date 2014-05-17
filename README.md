@@ -40,6 +40,11 @@ $ cat .aws-secrets
   - ```-zoneid``` : zone id
   - ```-comment``` : any notes
   - ```-account``` : account listed within the .aws-secert file (e.g webserver)
+  
+## Install Cron Job
+```
+* * * * * cd /path/to/simple-aws-route53-updater/; perl updater.pl -domain DOMAIN_NAME -zoneid ZONE_ID -account ACCOUNT > /tmp/simple-updater.log
+```
 
 ## Credit
 * dnscurl.pl: http://aws.amazon.com/developertools/9706686376855511
