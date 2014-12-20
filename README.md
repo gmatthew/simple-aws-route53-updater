@@ -26,6 +26,11 @@ $ cat .aws-secrets
     },
 );
 ```
+## Install Perl Libraries
+```
+  cpan -i Digest::MD5
+  cpan -i Digest::HMAC_SHA
+```
 
 ## Run Script 
 
